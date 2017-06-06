@@ -4,15 +4,19 @@
 
 ### Requirements
 
-This project uses the [Bazel](https://bazel.build) build system. 
++ [Bazel](https://bazel.build)
++ [Cassandra DB](http://cassandra.apache.org/)
 
 ### Setup
 
-Building and running the project is two simple steps.
-
 ```bash
-bazel build //src/main/java/com/example:golink
-bazel-bin/src/main/java/com/example/golink
+bazel build //src/main/java/com/example:golinkserver
+bazel-bin/src/main/java/com/example/golinkserver
+
+# OR
+
+bazel run //src/main/java/com/example:golinkserver
 ```
 
 Once built, it is available on http://localhost:8080/
+
