@@ -25,6 +25,10 @@ public class GoLinkServer {
         listHandler.setContextPath("/list");
         listHandler.setHandler(new GoLinkListHandler());
 
+        ContextHandler resolverHandler = new ContextHandler("/to");
+        resolverHandler.setContextPath("/to");
+        resolverHandler.setHandler(new GoLinkResolverHandler());
+
         ContextHandler updateHandler = new ContextHandler("/update");
         updateHandler.setContextPath("/update");
         updateHandler.setHandler(new GoLinkUpdateHandler());
@@ -35,6 +39,7 @@ public class GoLinkServer {
             createHandler,
             deleteHandler,
             listHandler,
+            resolverHandler,
             updateHandler
         });
 

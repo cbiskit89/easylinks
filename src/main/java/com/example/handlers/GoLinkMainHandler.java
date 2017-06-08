@@ -19,8 +19,12 @@ public class GoLinkMainHandler extends AbstractHandler {
         response.setContentType("text/html; charset=utf-8");
         response.setStatus(HttpServletResponse.SC_OK);
 
-        response.getWriter().println("<h1>Main Go Link Page</h1>");
-        response.getWriter().println("<a href='/create'>Create</a>");
+        String template = "<h1>Main Page</h1>" +
+            "<form action='/create'><input name='source' type='textbox' />" +
+            "<input name='dest' type='textbox' />" +
+            "<input name='submit' type='submit' /></form>";
+
+        response.getWriter().println(template);
 
         baseRequest.setHandled(true);
     }
