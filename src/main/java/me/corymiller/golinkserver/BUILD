@@ -1,9 +1,9 @@
-package(default_visibility = ["//visibility:public"])
+package(default_visibility = ["//visibility:private"])
 
 java_binary(
     name = "golinkserver",
     srcs = ["GoLinkServer.java"],
-    main_class = "com.example.GoLinkServer",
+    main_class = "me.corymiller.golinkserver.GoLinkServer",
     deps = [
         ":handlers_lib",
         "@org_eclipse_jetty_jetty_server//jar",

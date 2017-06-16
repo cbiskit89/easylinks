@@ -1,4 +1,4 @@
-package com.example;
+package me.corymiller.golinkserver;
 
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;

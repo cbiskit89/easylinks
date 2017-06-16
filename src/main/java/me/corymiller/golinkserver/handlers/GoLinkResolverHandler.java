@@ -1,4 +1,4 @@
-package com.example;
+package me.corymiller.golinkserver;
 
 import com.datastax.driver.core.BoundStatement;
 import com.datastax.driver.core.Cluster;

@@ -1,4 +1,4 @@
-package com.example;
+package me.corymiller.golinkserver;
 
 import com.datastax.driver.core.BoundStatement;
 import com.datastax.driver.core.Cluster;
@@ -56,7 +56,7 @@ public class GoLinkCreateHandler extends AbstractHandler {
                     params.get("dest")[0]);
             session.execute(insertBs);
             response.getWriter().println("<h3 style='color:green'>Link create.<h3>");
-            response.getWriter().println("<a href='http://" + params.get("dest")[0] +
+            response.getWriter().println("<a target='_blank' href='http://" + params.get("dest")[0] +
                     "'>" + params.get("source")[0] + "</a>");
         }
         baseRequest.setHandled(true);

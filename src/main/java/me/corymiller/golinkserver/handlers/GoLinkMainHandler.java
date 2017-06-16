@@ -1,4 +1,4 @@
-package com.example;
+package me.corymiller.golinkserver;
 
 import java.io.IOException;
 
@@ -20,9 +20,17 @@ public class GoLinkMainHandler extends AbstractHandler {
         response.setStatus(HttpServletResponse.SC_OK);
 
         String template = "<h1>Main Page</h1>" +
+            "<h2>Create</h2><br />" +
             "<form action='/create'><input name='source' type='textbox' />" +
             "<input name='dest' type='textbox' />" +
-            "<input name='submit' type='submit' /></form>";
+            "<input name='submit' type='submit' /></form>" +
+            "<br /><h2>Update</h2><br />" +
+            "<form action='/update'><input name='source' type='textbox' />" +
+            "<input name='dest' type='textbox' /> " +
+            "<input name='update' type='submit' /></form>" +
+            "<br /><h2>Delete</h2><br />" +
+            "<form action='/delete'><input name='source' type='textbox' />" +
+            "<input name='delete' type='submit' /></form>";
 
         response.getWriter().println(template);
 
