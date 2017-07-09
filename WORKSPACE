@@ -53,9 +53,21 @@ maven_jar(
 )
 
 maven_jar(
+    name = "org_eclipse_jetty_jetty_security",
+    artifact = "org.eclipse.jetty:jetty-security:9.4.5.v20170502",
+    sha1 = "4f4fc4cbe3504b6c91143ee37b38a1f3de2dcc72"
+)
+
+maven_jar(
     name = "org_eclipse_jetty_jetty_server",
     artifact = "org.eclipse.jetty:jetty-server:9.4.5.v20170502",
     sha1 = "b4d30340213c3d2a5f908860ba170c5a697829be",
+)
+
+maven_jar(
+    name = "org_eclipse_jetty_jetty_servlet",
+    artifact = "org.eclipse.jetty:jetty-servlet:9.4.5.v20170502",
+    #sha1 = "b4d30340213c3d2a5f908860ba170c5a697829be",
 )
 
 maven_jar(

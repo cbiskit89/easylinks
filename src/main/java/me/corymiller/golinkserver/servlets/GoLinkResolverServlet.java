@@ -9,17 +9,16 @@ import com.datastax.driver.core.Session;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.eclipse.jetty.server.Request;
-import org.eclipse.jetty.server.handler.AbstractHandler;
+import me.corymiller.golinks.GoLinkUtils;
 
-public class GoLinkResolverHandler extends AbstractHandler {
-    public GoLinkResolverHandler() {}
+public class GoLinkResolverServlet extends HttpServlet {
 
-    public void handle(String target,
-            Request baseRequest,
+    @Override
+    public void doGet(
             HttpServletRequest request,
             HttpServletResponse response) throws IOException, ServletException {
         response.setContentType("text/html; charset=utf-8");
@@ -30,14 +29,12 @@ public class GoLinkResolverHandler extends AbstractHandler {
 
         PreparedStatement ps = session.prepare("SELECT * FROM permlinks " +
                 "WHERE source=?");
-        BoundStatement bs = ps.bind(request.getRequestURI().substring(
-                    request.getContextPath().length() + 1));
+        BoundStatement bs = ps.bind(request.getPathInfo().substring(1));
 
         for (Row row : session.execute(bs)) {
-            response.sendRedirect("https://" + row.getString("destination"));
+            String dest = GoLinkUtils.provideAbsoluteLink(row.getString("destination"));
+            response.sendRedirect(dest);
         }
-
-        baseRequest.setHandled(true);
     }
 }
 
