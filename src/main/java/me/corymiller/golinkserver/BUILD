@@ -2,8 +2,9 @@ package(default_visibility = ["//visibility:private"])
 
 java_binary(
     name = "golinkserver",
-    srcs = ["GoLinkServer.java"],
+    srcs = ["GoLinkServer.java", "GoLinkServerProperties.java"],
     main_class = "me.corymiller.golinkserver.GoLinkServer",
+    data = [":golinkserver.conf"],
     deps = [
         ":servlets_lib",
         "@io_netty_netty_all//jar",

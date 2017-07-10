@@ -10,12 +10,12 @@
 ### Setup
 
 ```bash
-bazel build //src/main/java/com/example:golinkserver
-bazel-bin/src/main/java/com/example/golinkserver
+bazel build //src/main/java/me/corymiller/golinkserver:golinkserver
+./bazel-bin/src/main/java/me/corymiller/golinkserver
 
 # OR
 
-bazel run //src/main/java/com/example:golinkserver
+bazel run //src/main/java/me/corymiller/golinkserver:golinkserver
 ```
 
 Once built, it is available on http://localhost:8080/
