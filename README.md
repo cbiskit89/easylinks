@@ -1,22 +1,12 @@
-# golinks
+# Misc. Projects and Experiments
 
-## Test project to implement a simple URL shortening service.
+This repository contains random code samples and uses the Bazel build system.
 
-### Requirements
+## Requirements
 
-+ [Bazel](https://bazel.build)
-+ [Cassandra DB](http://cassandra.apache.org/)
++ [Bazel](https://bazel.build/)
 
-### Setup
+## Project Directory
 
-```bash
-bazel build //src/main/java/me/corymiller/golinkserver:golinkserver
-./bazel-bin/src/main/java/me/corymiller/golinkserver
-
-# OR
-
-bazel run //src/main/java/me/corymiller/golinkserver:golinkserver
-```
-
-Once built, it is available on http://localhost:8080/
-
++ [Go/Short Link Server](src/main/java/me/corymiller/golinkserver/)
++ [Golang Demos](golang/demos/)
