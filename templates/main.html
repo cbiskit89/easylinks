@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Go Link Server
+        </title>
+    </head>
+    <body>
+        <h1>Main Page</h1>
+        <h2>Create</h2><br />
+        <form action='/create'>
+        <input name='source' type='textbox' placeholder='Go Link Name' />
+        <input name='dest' type='textbox' placeholder='Destination Link' />
+        <input name='submit' type='submit' /></form>
+        <br /><h2>Update</h2><br />
+        <form action='/update'>
+        <input name='source' type='textbox' placeholder='Go Link Name' />
+        <input name='dest' type='textbox' placeholder='Destination Link' />
+        <input name='update' type='submit' /></form>
+        <br /><h2>Delete</h2><br />
+        <form action='/delete'>
+        <input name='source' type='textbox' placeholder='Go Link Name' />
+        <input name='delete' type='submit' /></form>
+        <a href='/list'>List All</a>
+    </body>
+</html>

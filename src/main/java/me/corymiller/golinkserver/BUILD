@@ -2,7 +2,10 @@ package(default_visibility = ["//visibility:private"])
 
 java_binary(
     name = "golinkserver",
-    srcs = ["GoLinkServer.java", "GoLinkServerProperties.java"],
+    srcs = [
+        "GoLinkServer.java",
+        "GoLinkServerProperties.java",
+    ],
     main_class = "me.corymiller.golinkserver.GoLinkServer",
     data = [":golinkserver.conf"],
     deps = [
@@ -13,7 +16,7 @@ java_binary(
         "@org_eclipse_jetty_jetty_security//jar",
         "@org_eclipse_jetty_jetty_server//jar",
         "@org_eclipse_jetty_jetty_servlet//jar",
-	"@org_eclipse_jetty_jetty_util//jar",
+        "@org_eclipse_jetty_jetty_util//jar",
         "@org_slf4j_slf4j_api//jar",
     ],
 )
@@ -26,7 +29,7 @@ java_library(
         "@com_codahale_metrics_metrics_core//jar",
         "@com_datastax_cassandra_cassandra_driver_core//jar",
         "@com_google_guava_guava//jar",
-	"@javax_servlet_javax_servlet_api//jar",
+        "@javax_servlet_javax_servlet_api//jar",
     ],
 )
 
