@@ -1,3 +1,9 @@
+load("@com_github_bazelbuild_buildtools//buildifier:def.bzl", "buildifier")
+
+buildifier(
+    name = "buildifier",
+)
+
 load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
 
 # Package rules for URL Shortener.

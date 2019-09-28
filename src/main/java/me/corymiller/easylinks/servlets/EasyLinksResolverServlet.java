@@ -1,4 +1,4 @@
-package me.corymiller.golinkserver;
+package me.corymiller.easylinks;
 
 import com.datastax.driver.core.BoundStatement;
 import com.datastax.driver.core.Cluster;
@@ -13,15 +13,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import me.corymiller.golinks.GoLinkUtils;
+import me.corymiller.easylinks.EasyLinksUtils;
 
-public class GoLinkResolverServlet extends HttpServlet {
+public class EasyLinksResolverServlet extends HttpServlet {
 
     @Override
     public void doGet(
             HttpServletRequest request,
             HttpServletResponse response) throws IOException, ServletException {
-        response.setContentType("text/html; charset=utf-8");
+                response.addHeader("Access-Control-Allow-Origin", "*");
         response.setStatus(HttpServletResponse.SC_OK);
 
         Cluster cluster = Cluster.builder().addContactPoint("127.0.0.1").build();
@@ -32,9 +32,8 @@ public class GoLinkResolverServlet extends HttpServlet {
         BoundStatement bs = ps.bind(request.getPathInfo().substring(1));
 
         for (Row row : session.execute(bs)) {
-            String dest = GoLinkUtils.provideAbsoluteLink(row.getString("destination"));
+            String dest = EasyLinksUtils.provideAbsoluteLink(row.getString("destination"));
             response.sendRedirect(dest);
         }
     }
 }
-

@@ -1,10 +1,10 @@
-package me.corymiller.golinks;
+package me.corymiller.easylinks;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class GoLinkUtils {
-    public GoLinkUtils () {}
+public class EasyLinksUtils {
+    public EasyLinksUtils () {}
 
     public static String provideAbsoluteLink (String link) {
         Pattern absLinkRegex = Pattern.compile("^([a-zA-Z])+://*$");

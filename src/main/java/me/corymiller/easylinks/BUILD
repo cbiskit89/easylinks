@@ -1,13 +1,13 @@
 package(default_visibility = ["//visibility:private"])
 
 java_binary(
-    name = "golinkserver",
+    name = "easylinks",
     srcs = [
-        "GoLinkServer.java",
-        "GoLinkServerProperties.java",
+        "EasyLinksServer.java",
+        "EasyLinksServerProperties.java",
     ],
-    main_class = "me.corymiller.golinkserver.GoLinkServer",
-    data = [":golinkserver.conf"],
+    data = [":easylinks.conf"],
+    main_class = "me.corymiller.easylinks.EasyLinksServer",
     deps = [
         ":servlets_lib",
         "@io_netty_netty_all//jar",
@@ -30,6 +30,7 @@ java_library(
         "@com_datastax_cassandra_cassandra_driver_core//jar",
         "@com_google_guava_guava//jar",
         "@javax_servlet_javax_servlet_api//jar",
+        "@org_json_json//jar",
     ],
 )
 

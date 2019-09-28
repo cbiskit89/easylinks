@@ -1,20 +1,50 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+# buildifier is written in Go and hence needs rules_go to be built.
+# See https://github.com/bazelbuild/rules_go for the up to date setup instructions.
 http_archive(
     name = "io_bazel_rules_go",
-    urls = ["https://github.com/bazelbuild/rules_go/releases/download/0.15.4/rules_go-0.15.4.tar.gz"],
-    sha256 = "7519e9e1c716ae3c05bd2d984a42c3b02e690c5df728dc0a84b23f90c355c5a1",
-)
-http_archive(
-    name = "bazel_gazelle",
-    urls = ["https://github.com/bazelbuild/bazel-gazelle/releases/download/0.14.0/bazel-gazelle-0.14.0.tar.gz"],
-    sha256 = "c0a5739d12c6d05b6c1ad56f2200cb0b57c5a70e03ebd2f7b87ce88cabf09c7b",
+    sha256 = "9fb16af4d4836c8222142e54c9efa0bb5fc562ffc893ce2abeac3e25daead144",
+    urls = [
+        "https://storage.googleapis.com/bazel-mirror/github.com/bazelbuild/rules_go/releases/download/0.19.0/rules_go-0.19.0.tar.gz",
+        "https://github.com/bazelbuild/rules_go/releases/download/0.19.0/rules_go-0.19.0.tar.gz",
+    ],
 )
 
-load("@io_bazel_rules_go//go:def.bzl", "go_rules_dependencies", "go_register_toolchains")
+load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
+
 go_rules_dependencies()
+
 go_register_toolchains()
+
+http_archive(
+    name = "bazel_gazelle",
+    sha256 = "be9296bfd64882e3c08e3283c58fcb461fa6dd3c171764fcc4cf322f60615a9b",
+    urls = [
+        "https://storage.googleapis.com/bazel-mirror/github.com/bazelbuild/bazel-gazelle/releases/download/0.18.1/bazel-gazelle-0.18.1.tar.gz",
+        "https://github.com/bazelbuild/bazel-gazelle/releases/download/0.18.1/bazel-gazelle-0.18.1.tar.gz",
+    ],
+)
+
 load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
+
 gazelle_dependencies()
+
+http_archive(
+    name = "com_google_protobuf",
+    strip_prefix = "protobuf-master",
+    urls = ["https://github.com/protocolbuffers/protobuf/archive/master.zip"],
+)
+
+load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
+
+protobuf_deps()
+
+http_archive(
+    name = "com_github_bazelbuild_buildtools",
+    strip_prefix = "buildtools-master",
+    url = "https://github.com/bazelbuild/buildtools/archive/master.zip",
+)
 
 maven_jar(
     name = "com_codahale_metrics_metrics_core",
@@ -53,6 +83,12 @@ maven_jar(
 )
 
 maven_jar(
+    name = "org_json_json",
+    artifact = "org.json:json:20190722",
+    sha1 = "07bce7bacf0ab5e9f894d307a3de8b7f540064d5",
+)
+
+maven_jar(
     name = "javax_servlet_javax_servlet_api",
     artifact = "javax.servlet:javax.servlet-api:4.0.0-b06",
     sha1 = "663b9d3ac21fced6b7f87820971c1f8678a32e86",
@@ -73,7 +109,7 @@ maven_jar(
 maven_jar(
     name = "org_eclipse_jetty_jetty_security",
     artifact = "org.eclipse.jetty:jetty-security:9.4.5.v20170502",
-    sha1 = "4f4fc4cbe3504b6c91143ee37b38a1f3de2dcc72"
+    sha1 = "4f4fc4cbe3504b6c91143ee37b38a1f3de2dcc72",
 )
 
 maven_jar(
@@ -99,4 +135,3 @@ maven_jar(
     artifact = "org.slf4j:slf4j-api:1.7.9",
     sha1 = "872ec63b41181e29ad5a3723f1417356e2d2c0f2",
 )
-
