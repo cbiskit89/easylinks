@@ -1,12 +1,9 @@
-# Misc. Projects and Experiments
+# Easy Links
 
-This repository contains random code samples and uses the Bazel build system.
+Easy Links is a way to create, manage, and use shortened links with easy-to-remember names.
 
 ## Requirements
 
++ [Angular](https://angular.io/)
 + [Bazel](https://bazel.build/)
-
-## Project Directory
-
-+ [Go/Short Link Server](src/main/java/me/corymiller/golinkserver/)
-+ [Golang Demos](golang/demos/)
++ [Cassandra](https://cassandra.apache.org/)
