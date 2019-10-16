@@ -1,18 +1,10 @@
-import { Component, Injectable, OnInit } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 
-import { Observable, merge, of } from 'rxjs';
-import { catchError, tap, map } from 'rxjs/operators';
-
-export interface EasyLinkAPI {
-  items: EasyLink[],
-  total_count: number,
-}
-
-export interface EasyLink {
-  source: string;
-  dest: string;
-}
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { CreateDialogComponent } from './create-dialog/create-dialog.component';
+import { EasyLink, EasyLinkService } from './easylink.service';
 
 @Component({
   selector: 'app-root',
@@ -23,8 +15,8 @@ export class AppComponent implements OnInit {
   title = 'Easy Links';
 
   constructor(
+    public dialog: MatDialog,
     private easyLinkService: EasyLinkService,
-    private http: HttpClient,
   ) { }
 
   ngOnInit() {
@@ -37,31 +29,24 @@ export class AppComponent implements OnInit {
   readonly placeholderSource = "Easy Link Name";
   readonly placeholderDest = "Website URL";
 
-  readonly server = 'http://localhost:8080';
-  readonly createURL = `${this.server}/create`;
-  readonly deleteURL = `${this.server}/delete`;
-  readonly listURL = `${this.server}/list`;
-  readonly updateURL = `${this.server}/update`;
-
-  createLink(source: string, dest: string): void {
-    const params = new HttpParams().append("source", source).append("dest", dest);
-    this.http.get(this.createURL, { params: params }).pipe(
-      tap(_ => console.log("creating an easy link")),
-      catchError(this.handleError())
-    ).subscribe(_ => this.listLinks());
+  openCreateDialog(): void {
+    console.log('Attempting to open dialog.');
+    const dialogRef = this.dialog.open(CreateDialogComponent, {
+      width: '100px;'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.listLinks()
+    })
   }
 
   deleteLink(source: string): void {
-    const params = new HttpParams().append("source", source);
-    this.http.get(this.deleteURL, { params: params }).pipe(
-      tap(_ => console.log("deleting an easy link")),
+    this.easyLinkService.deleteEasyLink(source).pipe(
       catchError(this.handleError())
     ).subscribe(_ => this.listLinks());
   }
 
   listLinks(): void {
     this.easyLinkService.listEasyLinks().pipe(
-      tap(_ => console.log("listing easy links")),
       catchError(this.handleError()),
     ).subscribe(
       (links: EasyLink[]) => this.links = links
@@ -69,9 +54,7 @@ export class AppComponent implements OnInit {
   }
 
   updateLink(source: string, dest: string): void {
-    const params = new HttpParams().append("source", source).append("dest", dest);
-    this.http.get(this.updateURL, { params: params }).pipe(
-      tap(_ => console.log("updating easy links")),
+    this.easyLinkService.updateEasyLink(source, dest).pipe(
       catchError(this.handleError())
     ).subscribe(_ => this.listLinks());
   }
@@ -82,22 +65,5 @@ export class AppComponent implements OnInit {
 
       return of(result as T);
     }
-  }
-}
-
-@Injectable({
-  providedIn: 'root',
-})
-export class EasyLinkService {
-  constructor(private _httpClient: HttpClient) { }
-
-  readonly server = 'http://localhost:8080';
-  readonly createURL = `${this.server}/create`;
-  readonly deleteURL = `${this.server}/delete`;
-  readonly listURL = `${this.server}/list`;
-  readonly updateURL = `${this.server}/update`;
-
-  listEasyLinks(): Observable<EasyLinkAPI> {
-    return this._httpClient.get<EasyLinkAPI>(this.listURL);
   }
 }

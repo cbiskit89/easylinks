@@ -4,28 +4,6 @@
   </span>
 </mat-toolbar>
 <div class="content">
-  <h2>Create a new easy link</h2>
-  <form>
-    <mat-form-field>
-      <input matInput #createSource [placeholder]="placeholderSource" />
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput #createDest [placeholder]="placeholderDest" />
-    </mat-form-field>
-    <button mat-raised-button color='primary' (click)="createLink(createSource.value, createDest.value)">Create</button>
-  </form>
-  <h2>Update an existing easy link</h2>
-  <form>
-    <mat-form-field>
-      <input matInput #updateSource type='textbox' [placeholder]="placeholderSource" />
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput #updateDest type='textbox' [placeholder]="placeholderDest" />
-    </mat-form-field>
-    <button mat-raised-button color='primary' (click)="updateLink(updateSource.value, updateDest.value)">Update</button>
-  </form>
-  <br />
-  <br />
   <div>
     <table mat-table [dataSource]="links" class="mat-elevation-z8">
       <ng-container matColumnDef="source">
@@ -43,11 +21,18 @@
       <ng-container matColumnDef="delete">
         <th mat-header-cell *matHeaderCellDef> Delete </th>
         <td mat-cell *matCellDef="let element">
-          <button mat-raised-button color="primary" (click)="deleteLink(element.source)">Delete</button>
+          <button mat-icon-button color="primary" (click)="deleteLink(element.source)">
+            <mat-icon>delete</mat-icon>
+          </button>
         </td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
   </div>
+  <button class="add-button"
+          (click)="openCreateDialog()"
+          mat-fab color="primary">
+    <mat-icon>add</mat-icon>
+  </button>
 </div>

@@ -1,0 +1,34 @@
+<p>
+    Create an Easy Link by entering a short, easy-to-remember,
+    name plus the destination URL that the Easy Link should
+    resolve to.
+</p>
+<form [formGroup]="createLinkForm"
+      (ngSubmit)="onSave(createLinkForm)">
+    <mat-form-field class="create-dialog-form-field">
+        <input formControlName="source"
+               matInput
+               placeholder="Easy Link"
+               required>
+    </mat-form-field>
+    <mat-form-field class="create-dialog-form-field">
+        <input formControlName="destination"
+               matInput
+               placeholder="Destination URL"
+               required>
+    </mat-form-field>
+    <div class="save-cancel-buttons">
+        <button class="save-button"
+                color="primary"
+                mat-raised-button
+                type="submit">
+            Create
+        </button>
+        <button class="cancel-button"
+                (click)="onCancel()"
+                color="secondary"
+                mat-raised-button>
+            Cancel
+        </button> 
+    </div>
+</form>
