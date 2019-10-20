@@ -25,6 +25,8 @@ export class AppComponent implements OnInit {
 
   links: EasyLink[] = [];
   displayedColumns: string[] = ['source', 'dest', 'delete'];
+  isEditingDest: boolean[];
+  isEditingSource: boolean[];
 
   readonly placeholderSource = "Easy Link Name";
   readonly placeholderDest = "Website URL";
@@ -39,6 +41,14 @@ export class AppComponent implements OnInit {
     })
   }
 
+  setDestEdit(item: number) {
+    this.isEditingDest[item] = !this.isEditingDest[item];
+  }
+
+  setSourceEdit(item: number) {
+    this.isEditingSource[item] = !this.isEditingSource[item];
+  }
+
   deleteLink(source: string): void {
     this.easyLinkService.deleteEasyLink(source).pipe(
       catchError(this.handleError())
@@ -51,12 +61,22 @@ export class AppComponent implements OnInit {
     ).subscribe(
       (links: EasyLink[]) => this.links = links
     );
+    this.isEditingDest = new Array<boolean>(this.links.length);
+    this.isEditingSource = new Array<boolean>(this.links.length);
   }
 
-  updateLink(source: string, dest: string): void {
-    this.easyLinkService.updateEasyLink(source, dest).pipe(
+  updateLink(item: number, source: string, newDest: string): void {
+    this.easyLinkService.updateEasyLink(source, { newDest: newDest }).pipe(
       catchError(this.handleError())
     ).subscribe(_ => this.listLinks());
+    this.isEditingDest[item] = !this.isEditingDest[item];
+  }
+
+  updateSource(item: number, currentSource: string, newSource: string): void {
+    this.easyLinkService.updateEasyLink(currentSource, { newSource: newSource }).pipe(
+      catchError(this.handleError())
+    ).subscribe(_ => this.listLinks());
+    this.isEditingSource[item] = !this.isEditingSource[item];
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

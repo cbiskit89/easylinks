@@ -47,8 +47,15 @@ export class EasyLinkService {
     return this._httpClient.get<EasyLinkAPI>(this.listURL);
   }
 
-  updateEasyLink(source: string, dest: string): Observable<unknown> {
-    const params = new HttpParams().append("source", source).append("dest", dest);
+  updateEasyLink(currentSource: string, update? : { newSource?: string, newDest?: string }): Observable<unknown> {
+    let params = new HttpParams();
+    if (update.newDest != undefined) {
+      params = params.append("newDest", update.newDest);
+    }
+    if (update.newSource != undefined) {
+      params = params.append("newSource", update.newSource);
+    }
+    params = params.append("currentSource", currentSource);
     return this._httpClient.get(this.updateURL, { params: params });
   }
 }
