@@ -46,92 +46,39 @@ http_archive(
     url = "https://github.com/bazelbuild/buildtools/archive/master.zip",
 )
 
-maven_jar(
-    name = "com_codahale_metrics_metrics_core",
-    artifact = "com.codahale.metrics:metrics-core:3.0.2",
-    sha1 = "c6a7fb32776e984b64ff1a548e3044238ea5a931",
+RULES_JVM_EXTERNAL_TAG = "3.0"
+RULES_JVM_EXTERNAL_SHA = "62133c125bf4109dfd9d2af64830208356ce4ef8b165a6ef15bbff7460b35c3a"
+
+http_archive(
+    name = "rules_jvm_external",
+    strip_prefix = "rules_jvm_external-%s" % RULES_JVM_EXTERNAL_TAG,
+    sha256 = RULES_JVM_EXTERNAL_SHA,
+    url = "https://github.com/bazelbuild/rules_jvm_external/archive/%s.zip" % RULES_JVM_EXTERNAL_TAG,
 )
 
-maven_jar(
-    name = "com_datastax_cassandra_cassandra_driver_core",
-    artifact = "com.datastax.cassandra:cassandra-driver-core:3.2.0",
-    sha1 = "065ffab45202c0830a37140dbc22c021b8a269c0",
-)
+load("@rules_jvm_external//:defs.bzl", "maven_install")
 
-maven_jar(
-    name = "com_datastax_cassandra_cassandra_driver_mapping",
-    artifact = "com.datastax.cassandra:cassandra-driver-mapping:3.2.0",
-    #sha1 = "065ffab45202c0830a37140dbc22c021b8a269c0",
-)
-
-maven_jar(
-    name = "com_datastax_cassandra_cassandra_driver_extras",
-    artifact = "com.datastax.cassandra:cassandra-driver-extras:3.2.0",
-    #sha1 = "065ffab45202c0830a37140dbc22c021b8a269c0",
-)
-
-maven_jar(
-    name = "com_google_guava_guava",
-    artifact = "com.google.guava:guava:22.0",
-    sha1 = "3564ef3803de51fb0530a8377ec6100b33b0d073",
-)
-
-maven_jar(
-    name = "io_netty_netty_all",
-    artifact = "io.netty:netty-all:4.1.9.Final",
-    sha1 = "0097860965d6a0a6b98e7f569f3f966727b8db75",
-)
-
-maven_jar(
-    name = "org_json_json",
-    artifact = "org.json:json:20190722",
-    sha1 = "07bce7bacf0ab5e9f894d307a3de8b7f540064d5",
-)
-
-maven_jar(
-    name = "javax_servlet_javax_servlet_api",
-    artifact = "javax.servlet:javax.servlet-api:4.0.0-b06",
-    sha1 = "663b9d3ac21fced6b7f87820971c1f8678a32e86",
-)
-
-maven_jar(
-    name = "org_eclipse_jetty_jetty_http",
-    artifact = "org.eclipse.jetty:jetty-http:9.4.5.v20170502",
-    sha1 = "c51b8a6a67d64672889249dd958edd77bff8fc0c",
-)
-
-maven_jar(
-    name = "org_eclipse_jetty_jetty_io",
-    artifact = "org.eclipse.jetty:jetty-io:9.4.5.v20170502",
-    sha1 = "76086f955d4e943396b8f340fd5bae3ce4da19d9",
-)
-
-maven_jar(
-    name = "org_eclipse_jetty_jetty_security",
-    artifact = "org.eclipse.jetty:jetty-security:9.4.5.v20170502",
-    sha1 = "4f4fc4cbe3504b6c91143ee37b38a1f3de2dcc72",
-)
-
-maven_jar(
-    name = "org_eclipse_jetty_jetty_server",
-    artifact = "org.eclipse.jetty:jetty-server:9.4.5.v20170502",
-    sha1 = "b4d30340213c3d2a5f908860ba170c5a697829be",
-)
-
-maven_jar(
-    name = "org_eclipse_jetty_jetty_servlet",
-    artifact = "org.eclipse.jetty:jetty-servlet:9.4.5.v20170502",
-    #sha1 = "b4d30340213c3d2a5f908860ba170c5a697829be",
-)
-
-maven_jar(
-    name = "org_eclipse_jetty_jetty_util",
-    artifact = "org.eclipse.jetty:jetty-util:9.4.5.v20170502",
-    sha1 = "5fd36dfcf39110b809bd9b20cec62706ab694711",
-)
-
-maven_jar(
-    name = "org_slf4j_slf4j_api",
-    artifact = "org.slf4j:slf4j-api:1.7.9",
-    sha1 = "872ec63b41181e29ad5a3723f1417356e2d2c0f2",
+maven_install(
+    artifacts = [
+        "com.codahale.metrics:metrics-core:3.0.2",
+        "com.datastax.cassandra:cassandra-driver-core:3.2.0",
+        "com.datastax.cassandra:cassandra-driver-mapping:3.2.0",
+        "com.datastax.cassandra:cassandra-driver-extras:3.2.0",
+        "com.google.guava:guava:22.0",
+        "io.netty:netty-all:4.1.9.Final",
+        "org.json:json:20190722",
+        "javax.servlet:javax.servlet-api:4.0.0-b06",
+        "org.eclipse.jetty:jetty-http:9.4.5.v20170502",
+        "org.eclipse.jetty:jetty-io:9.4.5.v20170502",
+        "org.eclipse.jetty:jetty-security:9.4.5.v20170502",
+        "org.eclipse.jetty:jetty-server:9.4.5.v20170502",
+        "org.eclipse.jetty:jetty-servlet:9.4.5.v20170502",
+        "org.eclipse.jetty:jetty-util:9.4.5.v20170502",
+        "org.slf4j:slf4j-api:1.7.9",
+    ],
+    repositories = [
+        "https://maven.google.com",
+        "https://repo1.maven.org/maven2",
+        "https://mvnrepository.com/artifact",
+    ],
 )
